@@ -1,11 +1,11 @@
-# Domain
+# Application
 
-Camada responsável pelas regras de negócio e entidades do sistema.
+Responsável por orquestrar a lógica da aplicação.
 
 ## Responsabilidades
-- Entidades (Produto, Venda, etc)
-- Regras de negócio
-- Validações essenciais
+- Casos de uso
+- Serviços
+- Regras de aplicação
 
-## Observação
-Essa camada não deve depender de outras camadas.
+## Função
+Intermediar a comunicação entre API e Domain.
