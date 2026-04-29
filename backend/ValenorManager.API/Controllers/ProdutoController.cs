@@ -1,36 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ValenorManager.API.DTOs.Produto;
+using ValenorManager.API.Services;
 using ValenorManager.Domain.Entities;
 using System.Linq;
 
 namespace ValenorManager.API.Controllers
 {
-    // Define que esse controller é uma API REST
     [ApiController]
-
-    // Define a rota base: /api/produto
     [Route("api/[controller]")]
     public class ProdutoController : ControllerBase
     {
-        // Simulação de banco em memória (TEMPORÁRIO)
-        private static List<Produto> _produtos = new List<Produto>();
+        private readonly ProdutoService _produtoService;
 
-        // Endpoint para criar um novo produto
+        // Injeção de dependência
+        public ProdutoController(ProdutoService produtoService)
+        {
+            _produtoService = produtoService;
+        }
+
         [HttpPost]
         public IActionResult CriarProduto([FromBody] ProdutoCreateDto dto)
         {
-            // Cria entidade de domínio a partir do DTO
-            var produto = new Produto(dto.Nome, dto.Preco, dto.QuantidadeEstoque);
+            var produto = _produtoService.CriarProduto(dto.Nome, dto.Preco, dto.QuantidadeEstoque);
 
-            // Simula ID automático (hack temporário)
-            typeof(Produto)
-                .GetProperty("Id")
-                ?.SetValue(produto, _produtos.Count + 1);
-
-            // Adiciona na lista
-            _produtos.Add(produto);
-
-            // Converte para DTO de resposta
             var response = new ProdutoResponseDto
             {
                 Id = produto.Id,
@@ -42,12 +34,12 @@ namespace ValenorManager.API.Controllers
             return Ok(response);
         }
 
-        // Endpoint para listar todos os produtos
         [HttpGet]
         public IActionResult ListarProdutos()
         {
-            // Converte lista de entidades para DTOs
-            var response = _produtos.Select(p => new ProdutoResponseDto
+            var produtos = _produtoService.ListarProdutos();
+
+            var response = produtos.Select(p => new ProdutoResponseDto
             {
                 Id = p.Id,
                 Nome = p.Nome,
