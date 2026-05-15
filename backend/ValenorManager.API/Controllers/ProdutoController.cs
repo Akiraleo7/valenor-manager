@@ -18,11 +18,18 @@ namespace ValenorManager.API.Controllers
             _produtoService = produtoService;
         }
 
+        // Endpoint para criar produto (AGORA ASSÍNCRONO)
         [HttpPost]
-        public IActionResult CriarProduto([FromBody] ProdutoCreateDto dto)
+        public async Task<IActionResult> CriarProduto([FromBody] ProdutoCreateDto dto)
         {
-            var produto = _produtoService.CriarProduto(dto.Nome, dto.Preco, dto.QuantidadeEstoque);
+            // Aguarda o retorno do service (Task -> Produto)
+            var produto = await _produtoService.CriarProduto(
+                dto.Nome,
+                dto.Preco,
+                dto.QuantidadeEstoque
+            );
 
+            // Mapeia para DTO de resposta
             var response = new ProdutoResponseDto
             {
                 Id = produto.Id,
@@ -34,11 +41,14 @@ namespace ValenorManager.API.Controllers
             return Ok(response);
         }
 
+        // Endpoint para listar produtos (AGORA ASSÍNCRONO)
         [HttpGet]
-        public IActionResult ListarProdutos()
+        public async Task<IActionResult> ListarProdutos()
         {
-            var produtos = _produtoService.ListarProdutos();
+            // Aguarda lista vinda do banco
+            var produtos = await _produtoService.ListarProdutos();
 
+            // Converte para DTO
             var response = produtos.Select(p => new ProdutoResponseDto
             {
                 Id = p.Id,

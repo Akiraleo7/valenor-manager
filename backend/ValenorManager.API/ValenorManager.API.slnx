@@ -1,3 +1,4 @@
 <Solution>
-  <Project Path="ValenorManager.API/ValenorManager.API.csproj" />
+  <Project Path="../ValenorManager.Domain/ValenorManager.Domain.csproj" />
+  <Project Path="ValenorManager.API.csproj" />
 </Solution>

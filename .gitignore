@@ -13,3 +13,6 @@ obj/
 
 # Environment
 .env
+
+# App settings
+appsettings.Development.json

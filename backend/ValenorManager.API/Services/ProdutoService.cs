@@ -1,32 +1,38 @@
 ﻿using ValenorManager.Domain.Entities;
+using ValenorManager.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ValenorManager.API.Services
 {
     // Serviço responsável pela lógica de negócio do Produto
     public class ProdutoService
     {
-        // Simulação de banco em memória (TEMPORÁRIO)
-        private static List<Produto> _produtos = new List<Produto>();
+        private readonly AppDbContext _context;
 
-        // Método para criar produto
-        public Produto CriarProduto(string nome, decimal preco, int quantidadeEstoque)
+        // Injeção do DbContext
+        public ProdutoService(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        // Criar produto no banco
+        public async Task<Produto> CriarProduto(string nome, decimal preco, int quantidadeEstoque)
         {
             var produto = new Produto(nome, preco, quantidadeEstoque);
 
-            // Simula ID automático
-            typeof(Produto)
-                .GetProperty("Id")
-                ?.SetValue(produto, _produtos.Count + 1);
+            // Adiciona no contexto
+            _context.Produtos.Add(produto);
 
-            _produtos.Add(produto);
+            // Salva no banco
+            await _context.SaveChangesAsync();
 
             return produto;
         }
 
-        // Método para listar produtos
-        public List<Produto> ListarProdutos()
+        // Listar produtos do banco
+        public async Task<List<Produto>> ListarProdutos()
         {
-            return _produtos;
+            return await _context.Produtos.ToListAsync();
         }
     }
 }
