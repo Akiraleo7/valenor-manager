@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen();
 
 // Service (Scoped correto)
 builder.Services.AddScoped<ProdutoService>();
+builder.Services.AddScoped<VendaService>();
 
 var app = builder.Build();
 

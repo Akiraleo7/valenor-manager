@@ -73,6 +73,14 @@ namespace ValenorManager.API.Data
 
                 entity.HasKey(iv => iv.Id);
 
+                entity.Property(iv => iv.VendaId)
+                      .HasColumnName("venda_id")
+                      .IsRequired();
+
+                entity.Property(iv => iv.ProdutoId)
+                      .HasColumnName("produto_id")
+                      .IsRequired();
+
                 entity.Property(iv => iv.Quantidade)
                       .HasColumnName("qtd_itens")
                       .IsRequired();
