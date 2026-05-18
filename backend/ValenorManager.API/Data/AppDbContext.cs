@@ -15,11 +15,18 @@ namespace ValenorManager.API.Data
         // Representa a tabela Produto no banco
         public DbSet<Produto> Produtos { get; set; }
 
+        public DbSet<Venda> Vendas { get; set; }
+
+        public DbSet<ItemVenda> ItensVenda { get; set; }
+
         // Mapeamento da entidade para o banco
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // =========================
+            // PRODUTO
+            // =========================
             modelBuilder.Entity<Produto>(entity =>
             {
                 entity.ToTable("produto");
@@ -35,8 +42,54 @@ namespace ValenorManager.API.Data
                       .IsRequired();
 
                 entity.Property(p => p.QuantidadeEstoque)
-                      .HasColumnName("qtd_estoque") //  mapeamento importante
+                      .HasColumnName("qtd_estoque")
                       .IsRequired();
+            });
+
+            // =========================
+            // VENDA
+            // =========================
+            modelBuilder.Entity<Venda>(entity =>
+            {
+                entity.ToTable("venda");
+
+                entity.HasKey(v => v.Id);
+
+                entity.Property(v => v.DataVenda)
+                      .HasColumnName("dt_venda")
+                      .IsRequired();
+
+                entity.Property(v => v.ValorTotal)
+                      .HasColumnName("vl_total")
+                      .IsRequired();
+            });
+
+            // =========================
+            // ITEM VENDA
+            // =========================
+            modelBuilder.Entity<ItemVenda>(entity =>
+            {
+                entity.ToTable("item_venda");
+
+                entity.HasKey(iv => iv.Id);
+
+                entity.Property(iv => iv.Quantidade)
+                      .HasColumnName("qtd_itens")
+                      .IsRequired();
+
+                entity.Property(iv => iv.PrecoUnitario)
+                      .HasColumnName("preco_unitario")
+                      .IsRequired();
+
+                // Relacionamento com Venda
+                entity.HasOne(iv => iv.Venda)
+                      .WithMany(v => v.Itens)
+                      .HasForeignKey(iv => iv.VendaId);
+
+                // Relacionamento com Produto
+                entity.HasOne(iv => iv.Produto)
+                      .WithMany()
+                      .HasForeignKey(iv => iv.ProdutoId);
             });
         }
     }

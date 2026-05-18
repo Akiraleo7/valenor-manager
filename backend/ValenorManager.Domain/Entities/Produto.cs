@@ -5,7 +5,9 @@ namespace ValenorManager.Domain.Entities
 {
     public class Produto
     {
-        // Constantes de mensagens 
+        // =========================
+        // CONSTANTES DE VALIDAÇÃO
+        // =========================
         private const string NomeObrigatorio = "Nome é obrigatório";
         private const string PrecoInvalido = "Preço deve ser maior que zero";
         private const string EstoqueInicialInvalido = "Estoque inicial não pode ser negativo";
@@ -13,16 +15,25 @@ namespace ValenorManager.Domain.Entities
         private const string QuantidadeSaidaInvalida = "A quantidade de saída deve ser maior que zero";
         private const string EstoqueInsuficiente = "Saldo em estoque insuficiente para esta operação";
 
-        // Propriedades
+        // =========================
+        // PROPRIEDADES
+        // =========================
         public int Id { get; private set; }
+
         public string Nome { get; private set; } = string.Empty;
+
         public decimal Preco { get; private set; }
+
         public int QuantidadeEstoque { get; private set; }
 
-        // Construtor protegido para ORM
+        // =========================
+        // CONSTRUTOR PARA ORM
+        // =========================
         protected Produto() { }
 
-        // Construtor principal
+        // =========================
+        // CONSTRUTOR PRINCIPAL
+        // =========================
         public Produto(string nome, decimal preco, int quantidadeEstoque)
         {
             ValidarDominio(nome, preco);
@@ -35,7 +46,9 @@ namespace ValenorManager.Domain.Entities
             QuantidadeEstoque = quantidadeEstoque;
         }
 
-        // Atualização de dados básicos
+        // =========================
+        // ATUALIZAÇÃO DE DADOS
+        // =========================
         public void AtualizarDados(string nome, decimal preco)
         {
             ValidarDominio(nome, preco);
@@ -44,7 +57,9 @@ namespace ValenorManager.Domain.Entities
             Preco = preco;
         }
 
-        // Entrada de estoque
+        // =========================
+        // ENTRADA DE ESTOQUE
+        // =========================
         public void AdicionarEstoque(int quantidade)
         {
             if (quantidade <= 0)
@@ -53,7 +68,9 @@ namespace ValenorManager.Domain.Entities
             QuantidadeEstoque += quantidade;
         }
 
-        // Saída de estoque
+        // =========================
+        // SAÍDA DE ESTOQUE
+        // =========================
         public void RemoverEstoque(int quantidade)
         {
             if (quantidade <= 0)
@@ -65,7 +82,9 @@ namespace ValenorManager.Domain.Entities
             QuantidadeEstoque -= quantidade;
         }
 
-        // Validação centralizada
+        // =========================
+        // VALIDAÇÃO CENTRALIZADA
+        // =========================
         private void ValidarDominio(string nome, decimal preco)
         {
             if (string.IsNullOrWhiteSpace(nome))
