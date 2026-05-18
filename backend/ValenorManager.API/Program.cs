@@ -4,7 +4,7 @@ using ValenorManager.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CONFIGURAÇÃO DO DB (AGORA NA ORDEM CERTA)
+// CONFIGURAÇÃO DO DB (AGORA NA ORDEM CERTA KRAI!!)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),

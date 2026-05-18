@@ -2,11 +2,10 @@
 bin/
 obj/
 
-# User files
-*.user
-
-# VS
+# Visual Studio
 .vs/
+*.user
+*.suo
 
 # Logs
 *.log
@@ -14,5 +13,13 @@ obj/
 # Environment
 .env
 
-# App settings
+# App Settings
 appsettings.Development.json
+
+# Rider / VSCode
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -18,7 +18,7 @@ namespace ValenorManager.API.Controllers
             _produtoService = produtoService;
         }
 
-        // Endpoint para criar produto (AGORA ASSÍNCRONO)
+        // Endpoint para criar produto (ASSÍNCRONO)
         [HttpPost]
         public async Task<IActionResult> CriarProduto([FromBody] ProdutoCreateDto dto)
         {
@@ -41,7 +41,7 @@ namespace ValenorManager.API.Controllers
             return Ok(response);
         }
 
-        // Endpoint para listar produtos (AGORA ASSÍNCRONO)
+        // Endpoint para listar produtos (ASSÍNCRONO)
         [HttpGet]
         public async Task<IActionResult> ListarProdutos()
         {
