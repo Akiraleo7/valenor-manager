@@ -13,6 +13,9 @@ namespace ValenorManager.API.Services
             _context = context;
         }
 
+        // =========================
+        // REGISTRAR VENDA
+        // =========================
         public Venda RegistrarVenda(VendaCreateDto dto)
         {
             decimal valorTotal = 0;
@@ -70,6 +73,14 @@ namespace ValenorManager.API.Services
             _context.SaveChanges();
 
             return venda;
+        }
+
+        // =========================
+        // LISTAR VENDAS
+        // =========================
+        public List<Venda> ListarVendas()
+        {
+            return _context.Vendas.ToList();
         }
     }
 }
