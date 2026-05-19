@@ -17,7 +17,9 @@ namespace ValenorManager.API.Controllers
             _vendaService = vendaService;
         }
 
-        // Endpoint para registrar venda
+        // =========================
+        // REGISTRAR VENDA
+        // =========================
         [HttpPost]
         public IActionResult RegistrarVenda([FromBody] VendaCreateDto dto)
         {
@@ -43,7 +45,9 @@ namespace ValenorManager.API.Controllers
             }
         }
 
-        // Endpoint para listar venda
+        // =========================
+        // LISTAR TODAS AS VENDAS
+        // =========================
         [HttpGet]
         public IActionResult ListarVendas()
         {
@@ -55,6 +59,39 @@ namespace ValenorManager.API.Controllers
                 DataVenda = v.DataVenda,
                 ValorTotal = v.ValorTotal
             });
+
+            return Ok(response);
+        }
+
+        // =========================
+        // BUSCAR VENDA POR ID
+        // =========================
+        [HttpGet("{id}")]
+        public IActionResult BuscarVendaPorId(int id)
+        {
+            var venda = _vendaService.BuscarVendaPorId(id);
+
+            if (venda == null)
+            {
+                return NotFound(new
+                {
+                    erro = "Venda não encontrada"
+                });
+            }
+
+            var response = new VendaResponseDto
+            {
+                Id = venda.Id,
+                DataVenda = venda.DataVenda,
+                ValorTotal = venda.ValorTotal,
+
+                Itens = venda.Itens.Select(item => new ItemVendaResponseDto
+                {
+                    ProdutoId = item.ProdutoId,
+                    Quantidade = item.Quantidade,
+                    PrecoUnitario = item.PrecoUnitario
+                }).ToList()
+            };
 
             return Ok(response);
         }

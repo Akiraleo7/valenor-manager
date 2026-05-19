@@ -1,6 +1,7 @@
 ﻿using ValenorManager.API.Data;
 using ValenorManager.API.DTOs.Venda;
 using ValenorManager.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ValenorManager.API.Services
 {
@@ -81,6 +82,13 @@ namespace ValenorManager.API.Services
         public List<Venda> ListarVendas()
         {
             return _context.Vendas.ToList();
+        }
+
+        public Venda? BuscarVendaPorId(int id)
+        {
+            return _context.Vendas
+                .Include(v => v.Itens)
+                .FirstOrDefault(v => v.Id == id);
         }
     }
 }
