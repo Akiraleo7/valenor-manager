@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ValenorManager.API.DTOs.Venda;
 using ValenorManager.API.Services;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace ValenorManager.API.Controllers
         // =========================
         // LISTAR TODAS AS VENDAS
         // =========================
+        [Authorize]
         [HttpGet]
         public IActionResult ListarVendas()
         {

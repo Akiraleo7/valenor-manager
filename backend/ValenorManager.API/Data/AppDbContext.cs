@@ -12,14 +12,20 @@ namespace ValenorManager.API.Data
         {
         }
 
-        // Representa a tabela Produto no banco
+        // =========================
+        // DBSets
+        // =========================
         public DbSet<Produto> Produtos { get; set; }
 
         public DbSet<Venda> Vendas { get; set; }
 
         public DbSet<ItemVenda> ItensVenda { get; set; }
 
-        // Mapeamento da entidade para o banco
+        public DbSet<Usuario> Usuarios { get; set; }
+
+        // =========================
+        // Mapeamento das entidades
+        // =========================
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -98,6 +104,32 @@ namespace ValenorManager.API.Data
                 entity.HasOne(iv => iv.Produto)
                       .WithMany()
                       .HasForeignKey(iv => iv.ProdutoId);
+            });
+
+            // =========================
+            // USUARIO
+            // =========================
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.ToTable("usuario");
+
+                entity.HasKey(u => u.Id);
+
+                entity.Property(u => u.Nome)
+                      .HasColumnName("nome")
+                      .IsRequired();
+
+                entity.Property(u => u.Email)
+                      .HasColumnName("email")
+                      .IsRequired();
+
+                entity.Property(u => u.SenhaHash)
+                      .HasColumnName("senha_hash")
+                      .IsRequired();
+
+                entity.Property(u => u.Role)
+                      .HasColumnName("role")
+                      .IsRequired();
             });
         }
     }
