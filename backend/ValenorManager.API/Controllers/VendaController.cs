@@ -21,6 +21,7 @@ namespace ValenorManager.API.Controllers
         // =========================
         // REGISTRAR VENDA
         // =========================
+        [Authorize(Roles = "Admin,Gerente,Operador")]
         [HttpPost]
         public IActionResult RegistrarVenda([FromBody] VendaCreateDto dto)
         {
@@ -49,7 +50,7 @@ namespace ValenorManager.API.Controllers
         // =========================
         // LISTAR TODAS AS VENDAS
         // =========================
-        [Authorize]
+        [Authorize(Roles = "Admin,Gerente")]
         [HttpGet]
         public IActionResult ListarVendas()
         {
@@ -68,6 +69,7 @@ namespace ValenorManager.API.Controllers
         // =========================
         // BUSCAR VENDA POR ID
         // =========================
+        [Authorize(Roles = "Admin,Gerente")]
         [HttpGet("{id}")]
         public IActionResult BuscarVendaPorId(int id)
         {

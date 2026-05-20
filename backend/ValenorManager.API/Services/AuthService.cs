@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using ValenorManager.API.Data;
 using ValenorManager.API.DTOs.Auth;
+using ValenorManager.Domain.Entities;
 
 namespace ValenorManager.API.Services
 {
@@ -18,6 +19,9 @@ namespace ValenorManager.API.Services
             _configuration = configuration;
         }
 
+        // =========================
+        // LOGIN
+        // =========================
         public string Login(LoginDto dto)
         {
             var usuario = _context.Usuarios
@@ -60,6 +64,35 @@ namespace ValenorManager.API.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        // =========================
+        // REGISTRAR USUÁRIO
+        // =========================
+        public Usuario RegistrarUsuario(RegisterUserDto dto)
+        {
+            var usuarioExistente = _context.Usuarios
+                .FirstOrDefault(u => u.Email == dto.Email);
+
+            if (usuarioExistente != null)
+            {
+                throw new Exception("Já existe um usuário com este email.");
+            }
+
+            // TEMPORÁRIO
+            // depois vamos implementar hash seguro
+            var usuario = new Usuario(
+                dto.Nome,
+                dto.Email,
+                dto.Senha,
+                dto.Role
+            );
+
+            _context.Usuarios.Add(usuario);
+
+            _context.SaveChanges();
+
+            return usuario;
         }
     }
 }

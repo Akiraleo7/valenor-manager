@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ValenorManager.API.DTOs.Auth;
 using ValenorManager.API.Services;
 
@@ -29,6 +30,35 @@ namespace ValenorManager.API.Controllers
                 {
                     mensagem = "Login realizado com sucesso",
                     token
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    erro = ex.Message
+                });
+            }
+        }
+
+        // =========================
+        // REGISTRAR USUÁRIO
+        // =========================
+        [Authorize(Roles = "Admin")]
+        [HttpPost("register")]
+        public IActionResult RegistrarUsuario([FromBody] RegisterUserDto dto)
+        {
+            try
+            {
+                var usuario = _authService.RegistrarUsuario(dto);
+
+                return Ok(new
+                {
+                    mensagem = "Usuário registrado com sucesso",
+                    usuario.Id,
+                    usuario.Nome,
+                    usuario.Email,
+                    usuario.Role
                 });
             }
             catch (Exception ex)
