@@ -47,6 +47,7 @@ namespace ValenorManager.API.Data
 
                 entity.Property(p => p.Preco)
                       .HasColumnName("preco")
+                      .HasColumnType("decimal(10,2)")
                       .IsRequired();
 
                 entity.Property(p => p.QuantidadeEstoque)
@@ -69,6 +70,7 @@ namespace ValenorManager.API.Data
 
                 entity.Property(v => v.ValorTotal)
                       .HasColumnName("vl_total")
+                      .HasColumnType("decimal(10,2)")
                       .IsRequired();
             });
 
