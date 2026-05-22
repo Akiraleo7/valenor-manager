@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
 using System.Text;
+using Microsoft.OpenApi;
 using ValenorManager.API.Data;
 using ValenorManager.API.Services;
 
@@ -73,6 +73,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<ProdutoService>();
 builder.Services.AddScoped<VendaService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AuditService>();
 
 var app = builder.Build();
 

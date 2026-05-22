@@ -8,16 +8,24 @@ namespace ValenorManager.API.Services
     public class VendaService
     {
         private readonly AppDbContext _context;
+        private readonly AuditService _auditService;
 
-        public VendaService(AppDbContext context)
+        public VendaService(
+            AppDbContext context,
+            AuditService auditService
+        )
         {
             _context = context;
+            _auditService = auditService;
         }
 
         // =========================
         // REGISTRAR VENDA
         // =========================
-        public Venda RegistrarVenda(VendaCreateDto dto)
+        public Venda RegistrarVenda(
+            VendaCreateDto dto,
+            string usuario
+        )
         {
             decimal valorTotal = 0;
 
@@ -72,6 +80,12 @@ namespace ValenorManager.API.Services
 
             // Persiste tudo
             _context.SaveChanges();
+
+            //REGISTRA AUDITORIA
+            _auditService.RegistrarEvento(
+                usuario,
+                $"Venda registrada no sistema no valor de R$ {valorTotal}. ID da venda: {venda.Id}"
+            );
 
             return venda;
         }

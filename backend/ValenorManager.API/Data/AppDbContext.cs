@@ -23,6 +23,8 @@ namespace ValenorManager.API.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<AuditLog> AuditLogs { get; set; }
+
         // =========================
         // Mapeamento das entidades
         // =========================
@@ -129,6 +131,28 @@ namespace ValenorManager.API.Data
 
                 entity.Property(u => u.Role)
                       .HasColumnName("role")
+                      .IsRequired();
+            });
+
+            // =========================
+            // AUDIT LOG
+            // =========================
+            modelBuilder.Entity<AuditLog>(entity =>
+            {
+                entity.ToTable("audit_log");
+
+                entity.HasKey(a => a.Id);
+
+                entity.Property(a => a.Usuario)
+                      .HasColumnName("usuario")
+                      .IsRequired();
+
+                entity.Property(a => a.Acao)
+                      .HasColumnName("acao")
+                      .IsRequired();
+
+                entity.Property(a => a.DataEvento)
+                      .HasColumnName("dt_evento")
                       .IsRequired();
             });
         }

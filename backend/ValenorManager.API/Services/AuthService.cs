@@ -12,11 +12,17 @@ namespace ValenorManager.API.Services
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly AuditService _auditService;
 
-        public AuthService(AppDbContext context, IConfiguration configuration)
+        public AuthService(
+            AppDbContext context,
+            IConfiguration configuration,
+            AuditService auditService
+        )
         {
             _context = context;
             _configuration = configuration;
+            _auditService = auditService;
         }
 
         // =========================
@@ -62,6 +68,12 @@ namespace ValenorManager.API.Services
                 expires: DateTime.Now.AddHours(2),
                 signingCredentials: creds
             );
+
+            //REGISTRA AUDITORIA
+            _auditService.RegistrarEvento(
+                usuario.Email,
+                "Login realizado no sistema"
+             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

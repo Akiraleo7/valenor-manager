@@ -27,7 +27,9 @@ namespace ValenorManager.API.Controllers
         {
             try
             {
-                var venda = _vendaService.RegistrarVenda(dto);
+                var usuario = User.Identity?.Name ?? "Usuário desconhecido";
+
+                var venda = _vendaService.RegistrarVenda(dto, usuario);
 
                 return Ok(new
                 {
