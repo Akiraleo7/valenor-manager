@@ -134,6 +134,10 @@ namespace ValenorManager.API.Data
                 entity.Property(u => u.Role)
                       .HasColumnName("role")
                       .IsRequired();
+                    
+                entity.Property(u => u.Ativo)
+                      .HasColumnName("ativo")
+                      .IsRequired();
             });
 
             // =========================

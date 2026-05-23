@@ -12,6 +12,8 @@
 
         public string Role { get; private set; } = "Operador";
 
+        public bool Ativo { get; private set; } = true;
+
         protected Usuario() { }
 
         public Usuario(string nome, string email, string senhaHash, string role)
@@ -20,6 +22,32 @@
             Email = email;
             SenhaHash = senhaHash;
             Role = role;
+            Ativo = true;
+        }
+
+        // =========================
+        // ALTERAR STATUS
+        // =========================
+        public void AlterarStatus(bool ativo)
+        {
+            Ativo = ativo;
+        }
+
+        // =========================
+        // ALTERAR ROLE
+        // =========================
+        public void AlterarRole(string role)
+        {
+            Role = role;
+        }
+
+        // =========================
+        // EDITAR USUARIO
+        // =========================
+        public void EditarUsuario(string nome, string email)
+        {
+            Nome = nome;
+            Email = email;
         }
     }
 }

@@ -38,6 +38,11 @@ namespace ValenorManager.API.Services
                 throw new Exception("Usuário não encontrado.");
             }
 
+            if (!usuario.Ativo)
+            {
+                throw new Exception("Usuário desativado.");
+            }
+
             // TEMPORÁRIO
             // depois vamos usar hash real
             if (usuario.SenhaHash != dto.Senha)

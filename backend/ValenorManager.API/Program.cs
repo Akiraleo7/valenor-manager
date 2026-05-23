@@ -74,6 +74,7 @@ builder.Services.AddScoped<ProdutoService>();
 builder.Services.AddScoped<VendaService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AuditService>();
+builder.Services.AddScoped<UsuarioService>();
 
 var app = builder.Build();
 
