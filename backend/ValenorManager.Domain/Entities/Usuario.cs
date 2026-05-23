@@ -49,5 +49,13 @@
             Nome = nome;
             Email = email;
         }
+
+        // ==========================
+        // ALTERAR SENHA
+        // ==========================
+        public void AlterarSenha(string novaSenhaHash)
+        {
+            SenhaHash = novaSenhaHash;
+        }
     }
 }

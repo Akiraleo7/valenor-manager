@@ -45,7 +45,12 @@ namespace ValenorManager.API.Services
 
             // TEMPORÁRIO
             // depois vamos usar hash real
-            if (usuario.SenhaHash != dto.Senha)
+            var senhaValida = BCrypt.Net.BCrypt.Verify(
+                dto.Senha,
+                usuario.SenhaHash
+            );
+
+            if (!senhaValida)
             {
                 throw new Exception("Senha inválida.");
             }
@@ -88,6 +93,13 @@ namespace ValenorManager.API.Services
         // =========================
         public Usuario RegistrarUsuario(RegisterUserDto dto)
         {
+            if (dto.Senha.Length < 6)
+            {
+                throw new Exception(
+                    "A senha deve possuir no mínimo 6 caracteres."
+                );
+            }
+
             var usuarioExistente = _context.Usuarios
                 .FirstOrDefault(u => u.Email == dto.Email);
 
@@ -96,8 +108,10 @@ namespace ValenorManager.API.Services
                 throw new Exception("Já existe um usuário com este email.");
             }
 
-            // TEMPORÁRIO
-            // depois vamos implementar hash seguro
+            // SENHA HASH
+
+            var senhaHash = BCrypt.Net.BCrypt.HashPassword(dto.Senha);
+
             var usuario = new Usuario(
                 dto.Nome,
                 dto.Email,
@@ -110,6 +124,53 @@ namespace ValenorManager.API.Services
             _context.SaveChanges();
 
             return usuario;
+        }
+
+        public void RedefinirSenha(
+            string email,
+            RedefinirSenhaDto dto
+        )
+        {
+            var usuario = _context.Usuarios
+                .FirstOrDefault(u =>u.Email == email);
+
+            if (usuario == null)
+            {
+                throw new Exception("Usuário não encontrado.");
+            }
+
+            // VALIDA SENHA ATUAL
+            var senhaAtualValida = BCrypt.Net.BCrypt.Verify(
+                dto.SenhaAtual,
+                usuario.SenhaHash
+            );
+
+            if (!senhaAtualValida)
+            {
+                throw new Exception("Senha atual inválida.");
+            }
+
+            // VALIDA NOVA SENHA
+            if (dto.NovaSenha.Length < 6)
+            {
+                throw new Exception("A nova senha deve possuir no mínimo 6 caracteres.");
+            }
+
+            // GERA NOVO HASH
+            var novaSenhaHash = BCrypt.Net.BCrypt.HashPassword(
+                dto.NovaSenha
+            );
+
+            // ALTERA SENHA
+            usuario.AlterarSenha(novaSenhaHash);
+
+            _context.SaveChanges();
+
+            // AUDITORIA
+            _auditService.RegistrarEvento(
+                usuario.Email,
+                "Senha redefinida no sistema."
+            );
         }
     }
 }

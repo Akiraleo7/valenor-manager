@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using ValenorManager.API.DTOs.Auth;
 using ValenorManager.API.Services;
 
@@ -59,6 +60,45 @@ namespace ValenorManager.API.Controllers
                     usuario.Nome,
                     usuario.Email,
                     usuario.Role
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    erro = ex.Message
+                });
+            }
+        }
+
+        // =========================
+        // REDEFINIR SENHA
+        // =========================
+        [Authorize]
+        [HttpPatch("redefinir-senha")]
+        public IActionResult RedefinirSenha(
+            [FromBody] RedefinirSenhaDto dto
+        )
+        {
+            try
+            {
+                var email = User.FindFirst(
+                    ClaimTypes.Email
+                )?.Value;
+
+                if (email == null)
+                {
+                    return Unauthorized(new
+                    {
+                        erro = "Usuário não autenticado."
+                    });
+                }
+
+                _authService.RedefinirSenha(email, dto);
+
+                return Ok(new
+                {
+                    mensagem = "Senha redefinida com sucesso."
                 });
             }
             catch (Exception ex)
