@@ -6,7 +6,7 @@ namespace ValenorManager.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         private readonly DashboardService _dashboardService;
@@ -48,6 +48,14 @@ namespace ValenorManager.API.Controllers
             var movimentacoes = _dashboardService.ObterMovimentacoes();
 
             return Ok(movimentacoes);
+        }
+
+        [HttpGet("relatorio-geral")]
+        public IActionResult ObterRelatorioGeral()
+        {
+            var relatorio = _dashboardService.ObterRelatorioGeral();
+
+            return Ok(relatorio);
         }
     }
 }

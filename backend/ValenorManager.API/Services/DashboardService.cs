@@ -100,5 +100,27 @@ namespace ValenorManager.API.Services
 
             return movimentacoes;
         }
+
+        public DashboardRelatorioDto ObterRelatorioGeral()
+        {
+            var relatorio = new DashboardRelatorioDto
+            {
+                TotalProdutos = _context.Produtos.Count(),
+
+                TotalUsuarios = _context.Usuarios.Count(),
+
+                TotalVendas = _context.Vendas.Count(),
+
+                TotalMovimentacoes = _context.AuditLogs.Count(),
+
+                ReceitaTotal = _context.Vendas
+                    .Sum(v => v.ValorTotal),
+
+                ProdutosBaixoEstoque = _context.Produtos
+                    .Count(p => p.QuantidadeEstoque <= 4)
+            };
+
+            return relatorio;
+        }
     }
 }
