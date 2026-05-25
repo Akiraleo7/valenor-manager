@@ -44,7 +44,7 @@ namespace ValenorManager.API.Services
             }
 
             // TEMPORÁRIO
-            // depois vamos usar hash real
+            // depois usar hash real
             var senhaValida = BCrypt.Net.BCrypt.Verify(
                 dto.Senha,
                 usuario.SenhaHash
@@ -115,7 +115,7 @@ namespace ValenorManager.API.Services
             var usuario = new Usuario(
                 dto.Nome,
                 dto.Email,
-                dto.Senha,
+                senhaHash,
                 dto.Role
             );
 
