@@ -41,5 +41,13 @@ namespace ValenorManager.API.Controllers
 
             return Ok(estoque);
         }
+
+        [HttpGet("movimentacoes")]
+        public IActionResult ObterMovimentacoes()
+        {
+            var movimentacoes = _dashboardService.ObterMovimentacoes();
+
+            return Ok(movimentacoes);
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace ValenorManager.API.Services
                 .Sum(v => v.ValorTotal);
 
             // TEMPORÁRIO
-            // ainda não temos módulo de despesas
+            // sem modulo de despensa ainda
             decimal despesas = 0;
 
             var usuariosAtivos = _context.Usuarios
@@ -83,6 +83,22 @@ namespace ValenorManager.API.Services
                 .ToList();
 
             return estoque;
+        }
+
+        public List<DashboardMovimentacaoDto> ObterMovimentacoes()
+        {
+            var movimentacoes = _context.AuditLogs
+                .OrderByDescending(a => a.DataEvento)
+                .Take(10)
+                .Select(a => new DashboardMovimentacaoDto
+                {
+                    Usuario = a.Usuario,
+                    Acao = a.Acao,
+                    DataEvento = a.DataEvento.ToString("dd/MM/yyyy HH:mm")
+                })
+                .ToList();
+
+            return movimentacoes;
         }
     }
 }
