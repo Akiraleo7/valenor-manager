@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Topbar } from "./Topbar";
 
 type Props = {
   children: ReactNode;
@@ -88,6 +89,8 @@ export function Layout({ children }: Props) {
           overflowY: "auto",
         }}
       >
+        <Topbar />
+
         {children}
       </main>
     </div>
