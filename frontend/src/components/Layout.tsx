@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import { Topbar } from "./Topbar";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 type Props = {
   children: ReactNode;
@@ -8,6 +11,28 @@ type Props = {
 
 export function Layout({ children }: Props) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const getButtonStyle = (
+    path: string
+  ) => ({
+    ...menuButtonStyle,
+
+    backgroundColor:
+      location.pathname === path
+        ? "#4f46e5"
+        : "transparent",
+
+    color:
+      location.pathname === path
+        ? "#ffffff"
+        : "#d1d5db",
+
+    fontWeight:
+      location.pathname === path
+        ? "bold"
+        : "normal",
+  });
 
   return (
     <div
@@ -50,37 +75,40 @@ export function Layout({ children }: Props) {
             }}
           >
             <button
-              style={activeMenuButtonStyle}
+              style={getButtonStyle("/")}
               onClick={() => navigate("/")}
             >
-              📊 Dashboard
+              Dashboard
             </button>
 
             <button
-              style={menuButtonStyle}
+              style={getButtonStyle("/estoque")}
               onClick={() => navigate("/estoque")}
             >
-              📦 Estoque
+              Estoque
             </button>
 
             <button
-              style={menuButtonStyle}
+              style={getButtonStyle("/vendas")}
               onClick={() => navigate("/vendas")}
             >
-              💰 Vendas
+              Vendas
             </button>
 
             <button
-              style={menuButtonStyle}
+              style={getButtonStyle("/usuarios")}
               onClick={() => navigate("/usuarios")}
             >
-              👥 Usuários
+              Usuários
             </button>
 
             <button
-              style={menuButtonStyle}
+              style={getButtonStyle("/relatorios")}
+              onClick={() => 
+                navigate("/relatorios")
+              }
             >
-              📑 Relatórios
+              Relatórios
             </button>
           </nav>
         </div>
@@ -124,11 +152,4 @@ const menuButtonStyle = {
   cursor: "pointer",
   fontSize: "15px",
   transition: "0.2s",
-};
-
-const activeMenuButtonStyle = {
-  ...menuButtonStyle,
-  backgroundColor: "#4f46e5",
-  color: "#ffffff",
-  fontWeight: "bold",
 };
