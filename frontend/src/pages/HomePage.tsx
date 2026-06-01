@@ -36,7 +36,8 @@ export function Home() {
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                    gridTemplateColumns:
+                        "repeat(auto-fit, minmax(220px, 1fr))",
                     gap: "20px",
                     marginBottom: "32px",
                 }}
@@ -77,7 +78,8 @@ export function Home() {
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                    gridTemplateColumns:
+                        "repeat(auto-fit, minmax(320px, 1fr))",
                     gap: "20px",
                 }}
             >
@@ -100,7 +102,19 @@ export function Home() {
                         backgroundColor: "#ffffff",
                         borderRadius: "16px",
                         padding: "24px",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                        boxShadow:
+                            "0 2px 8px rgba(0,0,0,0.05)",
+
+                        transition: "all 0.2s ease",
+                        cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform =
+                            "translateY(-4px)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform =
+                            "translateY(0px)";
                     }}
                 >
                     <h3

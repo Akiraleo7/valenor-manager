@@ -9,6 +9,7 @@ import { Home } from "../pages/HomePage";
 import { Estoque } from "../pages/Estoque";
 import { Usuarios } from "../pages/Usuarios";
 import { Vendas } from "../pages/Vendas";
+import { Relatorios } from "../pages/Relatorios";
 
 export function AppRoutes() {
   return (
@@ -29,6 +30,11 @@ export function AppRoutes() {
         <Route
           path="/vendas"
           element={<Vendas />}
+        />
+
+        <Route
+          path="/relatorios"
+          element={<Relatorios />}
         />
       </Routes>
     </Layout>

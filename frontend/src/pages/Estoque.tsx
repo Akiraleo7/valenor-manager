@@ -165,6 +165,14 @@ export const Estoque = () => {
 
         <button
           onClick={() => setModalOpen(true)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(-2px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(0px)";
+          }}
           style={{
             backgroundColor: "#4f46e5",
             color: "#ffffff",
@@ -174,6 +182,8 @@ export const Estoque = () => {
             cursor: "pointer",
             fontWeight: "bold",
             fontSize: "14px",
+
+            transition: "all 0.2s ease",
           }}
         >
           + Novo Produto
@@ -196,6 +206,21 @@ export const Estoque = () => {
             border: "1px solid #d1d5db",
             outline: "none",
             fontSize: "14px",
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor =
+              "#6366f1";
+
+            e.currentTarget.style.boxShadow =
+              "0 0 0 3px rgba(99,102,241,0.15)";
+          }}
+
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor =
+              "#d1d5db";
+
+            e.currentTarget.style.boxShadow =
+              "none";
           }}
         />
       </div>
@@ -234,7 +259,22 @@ export const Estoque = () => {
                 key={index}
                 style={{
                   borderBottom: "1px solid #f3f4f6",
-                  transition: "0.2s",
+                  transition: "all 0.2s ease",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "#f8fafc";
+
+                  e.currentTarget.style.transform =
+                    "scale(1.005)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "transparent";
+
+                  e.currentTarget.style.transform =
+                    "scale(1)";
                 }}
               >
                 <td style={tdStyle}>
@@ -278,16 +318,16 @@ export const Estoque = () => {
       {modalOpen && (
         <div
           style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
+            backgroundColor: "#ffffff",
+            borderRadius: "20px",
+            padding: "32px",
             width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 999,
+            maxWidth: "500px",
+
+            border: "1px solid #e5e7eb",
+
+            boxShadow:
+              "0 25px 60px rgba(0,0,0,0.15)",
           }}
         >
           <div
@@ -326,6 +366,21 @@ export const Estoque = () => {
                   )
                 }
                 style={inputStyle}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#6366f1";
+
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 3px rgba(99,102,241,0.15)";
+                }}
+
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#d1d5db";
+
+                  e.currentTarget.style.boxShadow =
+                    "none";
+                }}
               />
 
               <select
@@ -367,6 +422,21 @@ export const Estoque = () => {
                     )
                   }
                   style={inputStyle}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor =
+                      "#6366f1";
+
+                    e.currentTarget.style.boxShadow =
+                      "0 0 0 3px rgba(99,102,241,0.15)";
+                  }}
+
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor =
+                      "#d1d5db";
+
+                    e.currentTarget.style.boxShadow =
+                      "none";
+                  }}
                 />
               )}
 
@@ -379,6 +449,21 @@ export const Estoque = () => {
                   )
                 }
                 style={inputStyle}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#6366f1";
+
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 3px rgba(99,102,241,0.15)";
+                }}
+
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#d1d5db";
+
+                  e.currentTarget.style.boxShadow =
+                    "none";
+                }}
               />
             </div>
 
@@ -394,6 +479,14 @@ export const Estoque = () => {
                 onClick={() =>
                   setModalOpen(false)
                 }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(0px)";
+                }}
                 style={cancelButtonStyle}
               >
                 Cancelar
@@ -401,6 +494,14 @@ export const Estoque = () => {
 
               <button
                 onClick={salvarProduto}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(0px)";
+                }}
                 style={saveButtonStyle}
               >
                 Salvar
@@ -431,6 +532,8 @@ const inputStyle = {
   border: "1px solid #d1d5db",
   outline: "none",
   fontSize: "14px",
+
+  transition: "all 0.2s ease",
 };
 
 const cancelButtonStyle = {
@@ -440,6 +543,8 @@ const cancelButtonStyle = {
   borderRadius: "12px",
   cursor: "pointer",
   fontWeight: "bold",
+
+  transition: "all 0.2s ease",
 };
 
 const saveButtonStyle = {
@@ -450,6 +555,8 @@ const saveButtonStyle = {
   borderRadius: "12px",
   cursor: "pointer",
   fontWeight: "bold",
+
+  transition: "all 0.2s ease",
 };
 
 export default Estoque;

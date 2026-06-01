@@ -141,15 +141,23 @@ export const Usuarios = () => {
           onClick={() =>
             setModalOpen(true)
           }
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(-2px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(0px)";
+          }}
           style={{
-            backgroundColor:
-              "#4f46e5",
+            backgroundColor: "#4f46e5",
             color: "#ffffff",
             border: "none",
             padding: "12px 18px",
             borderRadius: "12px",
             cursor: "pointer",
             fontWeight: "bold",
+            transition: "all 0.2s ease",
           }}
         >
           + Novo Usuário
@@ -170,6 +178,20 @@ export const Usuarios = () => {
               e.target.value
             )
           }
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor =
+              "#6366f1";
+
+            e.currentTarget.style.boxShadow =
+              "0 0 0 3px rgba(99,102,241,0.15)";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor =
+              "#d1d5db";
+
+            e.currentTarget.style.boxShadow =
+              "none";
+          }}
           style={{
             width: "100%",
             maxWidth: "320px",
@@ -179,6 +201,8 @@ export const Usuarios = () => {
               "1px solid #d1d5db",
             outline: "none",
             fontSize: "14px",
+            transition:
+              "all 0.2s ease",
           }}
         />
       </div>
@@ -237,6 +261,23 @@ export const Usuarios = () => {
                   style={{
                     borderBottom:
                       "1px solid #f3f4f6",
+                    transition:
+                      "all 0.2s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "#f8fafc";
+
+                    e.currentTarget.style.transform =
+                      "scale(1.005)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "transparent";
+
+                    e.currentTarget.style.transform =
+                      "scale(1)";
                   }}
                 >
                   <td style={tdStyle}>
@@ -256,7 +297,7 @@ export const Usuarios = () => {
                       style={{
                         backgroundColor:
                           usuario.status ===
-                          "Ativo"
+                            "Ativo"
                             ? "#22c55e"
                             : "#ef4444",
 
@@ -291,19 +332,16 @@ export const Usuarios = () => {
       {modalOpen && (
         <div
           style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
+            backgroundColor: "#ffffff",
+            borderRadius: "20px",
+            padding: "32px",
             width: "100%",
-            height: "100%",
-            backgroundColor:
-              "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent:
-              "center",
-            alignItems:
-              "center",
-            zIndex: 999,
+            maxWidth: "500px",
+
+            border: "1px solid #e5e7eb",
+
+            boxShadow:
+              "0 25px 60px rgba(0,0,0,0.15)",
           }}
         >
           <div
@@ -345,6 +383,21 @@ export const Usuarios = () => {
                   )
                 }
                 style={inputStyle}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#6366f1";
+
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 3px rgba(99,102,241,0.15)";
+                }}
+
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#d1d5db";
+
+                  e.currentTarget.style.boxShadow =
+                    "none";
+                }}
               />
 
               <input
@@ -356,6 +409,21 @@ export const Usuarios = () => {
                   )
                 }
                 style={inputStyle}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#6366f1";
+
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 3px rgba(99,102,241,0.15)";
+                }}
+
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#d1d5db";
+
+                  e.currentTarget.style.boxShadow =
+                    "none";
+                }}
               />
 
               <input
@@ -368,6 +436,21 @@ export const Usuarios = () => {
                   )
                 }
                 style={inputStyle}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#6366f1";
+
+                  e.currentTarget.style.boxShadow =
+                    "0 0 0 3px rgba(99,102,241,0.15)";
+                }}
+
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor =
+                    "#d1d5db";
+
+                  e.currentTarget.style.boxShadow =
+                    "none";
+                }}
               />
 
               <select
@@ -418,24 +501,32 @@ export const Usuarios = () => {
             >
               <button
                 onClick={() =>
-                  setModalOpen(
-                    false
-                  )
+                  setModalOpen(false)
                 }
-                style={
-                  cancelButtonStyle
-                }
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(0px)";
+                }}
+                style={cancelButtonStyle}
               >
                 Cancelar
               </button>
 
               <button
-                onClick={
-                  salvarUsuario
-                }
-                style={
-                  saveButtonStyle
-                }
+                onClick={salvarUsuario}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform =
+                    "translateY(0px)";
+                }}
+                style={saveButtonStyle}
               >
                 Salvar
               </button>
@@ -465,6 +556,7 @@ const inputStyle = {
   border: "1px solid #d1d5db",
   outline: "none",
   fontSize: "14px",
+  transition: "all 0.2s ease",
 };
 
 const cancelButtonStyle = {
@@ -474,6 +566,7 @@ const cancelButtonStyle = {
   borderRadius: "12px",
   cursor: "pointer",
   fontWeight: "bold",
+  transition: "all 0.2s ease",
 };
 
 const saveButtonStyle = {
@@ -484,6 +577,7 @@ const saveButtonStyle = {
   borderRadius: "12px",
   cursor: "pointer",
   fontWeight: "bold",
+  transition: "all 0.2s ease",
 };
 
 export default Usuarios;
