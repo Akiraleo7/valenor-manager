@@ -1,11 +1,14 @@
 import type { ReactNode } from "react";
 import { Topbar } from "./Topbar";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
 };
 
 export function Layout({ children }: Props) {
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
@@ -17,7 +20,7 @@ export function Layout({ children }: Props) {
       {/* SIDEBAR */}
       <aside
         style={{
-          width: "260px",
+          minWidth: "260px",
           backgroundColor: "#111827",
           color: "#fff",
           padding: "24px",
@@ -46,24 +49,38 @@ export function Layout({ children }: Props) {
               gap: "16px",
             }}
           >
-            <button style={menuButtonStyle}>
-              Dashboard
+            <button
+              style={activeMenuButtonStyle}
+              onClick={() => navigate("/")}
+            >
+              📊 Dashboard
             </button>
 
-            <button style={menuButtonStyle}>
-              Estoque
+            <button
+              style={menuButtonStyle}
+              onClick={() => navigate("/estoque")}
+            >
+              📦 Estoque
             </button>
 
-            <button style={menuButtonStyle}>
-              Financeiro
+            <button
+              style={menuButtonStyle}
+              onClick={() => navigate("/vendas")}
+            >
+              💰 Vendas
             </button>
 
-            <button style={menuButtonStyle}>
-              Usuários
+            <button
+              style={menuButtonStyle}
+              onClick={() => navigate("/usuarios")}
+            >
+              👥 Usuários
             </button>
 
-            <button style={menuButtonStyle}>
-              Relatórios
+            <button
+              style={menuButtonStyle}
+            >
+              📑 Relatórios
             </button>
           </nav>
         </div>
@@ -100,10 +117,18 @@ export function Layout({ children }: Props) {
 const menuButtonStyle = {
   background: "transparent",
   border: "none",
-  color: "#fff",
-  padding: "14px",
-  borderRadius: "8px",
+  color: "#d1d5db",
+  padding: "14px 16px",
+  borderRadius: "12px",
   textAlign: "left" as const,
   cursor: "pointer",
   fontSize: "15px",
+  transition: "0.2s",
+};
+
+const activeMenuButtonStyle = {
+  ...menuButtonStyle,
+  backgroundColor: "#4f46e5",
+  color: "#ffffff",
+  fontWeight: "bold",
 };

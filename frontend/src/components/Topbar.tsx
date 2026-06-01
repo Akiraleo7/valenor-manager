@@ -21,7 +21,7 @@ export function Topbar() {
             color: "#111827",
           }}
         >
-          Olá, Admin 👋
+          Olá, Admin
         </h2>
 
         <p
